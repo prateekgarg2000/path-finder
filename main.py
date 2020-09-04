@@ -1,4 +1,5 @@
 from DFS import *
+from BFS import *
 
 def main(width,ROWS,algo):
     win = pygame.display.set_mode((WIDTH, WIDTH))
@@ -12,8 +13,7 @@ def main(width,ROWS,algo):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (happend and (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE or pygame.mouse.get_pressed()[0] or pygame.mouse.get_pressed()[2])):
                 run = False
-                continue
-
+                break
             if pygame.mouse.get_pressed()[0]: # LEFT
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, ROWS, width)
@@ -45,6 +45,8 @@ def main(width,ROWS,algo):
                     happend=True
                     if algo == "DFS":
                         DFS_algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end)
+                    if algo == "BFS":
+                        BFS_algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end)
                 if event.key == pygame.K_c:
                     start = None
                     end = None

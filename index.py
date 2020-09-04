@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets,QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 from main import *
@@ -15,6 +15,14 @@ def set_DFS():
     is_running=True
     main(600,50,"DFS")
 
+def set_BFS():
+    global is_running
+    if is_running:
+        pygame.quit()
+        is_running=False
+    is_running=True
+    main(600,50,"BFS")
+
 def window():
         app = QApplication(sys.argv)
         win = QMainWindow()
@@ -26,6 +34,12 @@ def window():
         b1=QtWidgets.QPushButton(win)
         b1.setText("DFS")
         b1.clicked.connect(set_DFS)
+
+        b2=QtWidgets.QPushButton(win)
+        b2.setText("BFS")
+        b2.clicked.connect(set_BFS)
+        b2.setGeometry(QtCore.QRect(100, 100, 93, 28))
+
         win.show()
         sys.exit(app.exec_())
 window()
