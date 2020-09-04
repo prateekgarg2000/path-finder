@@ -30,6 +30,7 @@ class Spot:
 		self.neighbors = []
 		self.width = width
 		self.total_rows = total_rows
+		self.parent=None
 
 	def get_pos(self):
 		return self.row, self.col
@@ -49,11 +50,11 @@ class Spot:
 		if self.row < self.total_rows - 1 and grid[self.row + 1][self.col].get_state()!=3: # DOWN
 			self.neighbors.append(grid[self.row + 1][self.col])
 
-		if self.row > 0 and grid[self.row - 1][self.col].get_state()!=3: # UP
-			self.neighbors.append(grid[self.row - 1][self.col])
-
 		if self.col < self.total_rows - 1 and grid[self.row][self.col+1].get_state()!=3: # RIGHT
 			self.neighbors.append(grid[self.row][self.col + 1])
+
+		if self.row > 0 and grid[self.row - 1][self.col].get_state()!=3: # UP
+			self.neighbors.append(grid[self.row - 1][self.col])
 
 		if self.col > 0 and grid[self.row][self.col-1].get_state()!=3: # LEFT
 			self.neighbors.append(grid[self.row][self.col - 1])
@@ -82,7 +83,6 @@ def draw_grid(win, rows, width):
 
 
 def draw(win, grid, rows, width):
-	win.fill(COLORS[0])
 	for row in grid:
 		for spot in row:
 			spot.draw(win)
